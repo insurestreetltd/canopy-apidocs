@@ -1,0 +1,2115 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="stylesheets/screen-12ec0f84.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-e033bdd3.js"></script>
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar-cad8cdcb.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo-8f56d7a9.png" class="logo" alt="" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#requesting-your-credentials" class="toc-h1 toc-link" data-title="Requesting Your Credentials">Requesting Your Credentials</a>
+          </li>
+          <li>
+            <a href="#using-api-key" class="toc-h1 toc-link" data-title="Using API key">Using API key</a>
+          </li>
+          <li>
+            <a href="#requesting-an-api-token" class="toc-h1 toc-link" data-title="Requesting an API Token">Requesting an API Token</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#http-request" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
+                  </li>
+                  <li>
+                    <a href="#body-parameters" class="toc-h2 toc-link" data-title="Body Parameters">Body Parameters</a>
+                  </li>
+                  <li>
+                    <a href="#using-api-token" class="toc-h2 toc-link" data-title="Using API token">Using API token</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#refresh-secret-key" class="toc-h1 toc-link" data-title="Refresh Secret Key">Refresh Secret Key</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#http-request-2" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
+                  </li>
+                  <li>
+                    <a href="#body-parameters-2" class="toc-h2 toc-link" data-title="Body Parameters">Body Parameters</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#prefill-user-39-s-rent-passport-with-existing-data" class="toc-h1 toc-link" data-title="Prefill User's Rent Passport with Existing Data">Prefill User's Rent Passport with Existing Data</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#set-identity" class="toc-h2 toc-link" data-title="Set Identity">Set Identity</a>
+                  </li>
+                  <li>
+                    <a href="#set-income" class="toc-h2 toc-link" data-title="Set Income">Set Income</a>
+                  </li>
+                  <li>
+                    <a href="#set-rent" class="toc-h2 toc-link" data-title="Set Rent">Set Rent</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#referencing-endpoints" class="toc-h1 toc-link" data-title="Referencing Endpoints">Referencing Endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-the-list-of-branches" class="toc-h2 toc-link" data-title="Get the List of Branches">Get the List of Branches</a>
+                  </li>
+                  <li>
+                    <a href="#link-branch" class="toc-h2 toc-link" data-title="Link Branch">Link Branch</a>
+                  </li>
+                  <li>
+                    <a href="#delete-branch-mapping" class="toc-h2 toc-link" data-title="Delete Branch Mapping">Delete Branch Mapping</a>
+                  </li>
+                  <li>
+                    <a href="#request-referencing" class="toc-h2 toc-link" data-title="Request Referencing">Request Referencing</a>
+                  </li>
+                  <li>
+                    <a href="#rent-passport-retrieval" class="toc-h2 toc-link" data-title="Rent Passport Retrieval">Rent Passport Retrieval</a>
+                  </li>
+                  <li>
+                    <a href="#get-intermediate-pdf-report" class="toc-h2 toc-link" data-title="Get Intermediate PDF Report">Get Intermediate PDF Report</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#webhooks-endpoints" class="toc-h1 toc-link" data-title="Webhooks Endpoints">Webhooks Endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#register-webhook" class="toc-h2 toc-link" data-title="Register Webhook">Register Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#unregister-webhook" class="toc-h2 toc-link" data-title="Unregister Webhook">Unregister Webhook</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Canopy API! We follow standard behaviour in terms of URL&#39;s, JSON request/response bodies where applicable and standard HTTP error codes.</p>
+<h1 id='requesting-your-credentials'>Requesting Your Credentials</h1>
+<p>Credentials are provided on request by Canopy to yourselves. Please speak to your account manager here to obtain the details for the environments.</p>
+<h1 id='using-api-key'>Using API key</h1>
+<p>In the credentials you were sent you should have API key. Canopy expects for the API key to be included in all requests to the API in a header that looks like the following:</p>
+
+<p><code>x-api-key: ePYgsiGbWF5aAHBj0xT9Pa1k5li0NPMD25PQXbAC</code></p>
+<h1 id='requesting-an-api-token'>Requesting an API Token</h1>
+<blockquote>
+<p>To get API token, use this code:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">jsonwebtoken</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_client_id</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientSecretKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_secret_key</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">canopyApiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_secret_key</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// Function that generates jwt token payload using clientId</span>
+<span class="kd">const</span> <span class="nx">generatePayload</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">);</span> <span class="c1">// sec</span>
+  <span class="kd">const</span> <span class="nx">expires</span> <span class="o">=</span> <span class="nx">now</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">iss</span><span class="p">:</span> <span class="dl">"</span><span class="s2">canopy.rent</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">scope</span><span class="p">:</span> <span class="dl">"</span><span class="s2">request.write_only document.read_only</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">aud</span><span class="p">:</span> <span class="s2">`</span><span class="err">referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/token</span><span class="s2">`</span><span class="p">,</span>
+    <span class="na">exp</span><span class="p">:</span> <span class="nx">expires</span><span class="p">,</span>
+    <span class="na">iat</span><span class="p">:</span> <span class="nx">now</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">payload</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">authenticate</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Generate jwt key</span>
+  <span class="kd">const</span> <span class="nx">jwtKey</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">generatePayload</span><span class="p">(),</span> <span class="nx">clientSecretKey</span><span class="p">);</span>
+
+  <span class="c1">// Send POST request</span>
+  <span class="k">return</span> <span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/token</span><span class="s2">`</span><span class="p">,</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1">// Add API key from the credentials into headers</span>
+      <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="nx">canopyApiKey</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">jwtKey</span><span class="p">:</span> <span class="nx">jwtKey</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">authenticate</span><span class="p">();</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer eyaasd456FFGDFGdfgdfgdfgdfg7sdyfg35htjl3bhef89y4rjkbergv-KAj-dGh0xEuZftO_Utm6dugKQ"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expires"</span><span class="p">:</span><span class="w"> </span><span class="mi">1594907203</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client/:clientId/token</code></p>
+<h3 id='body-parameters'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>jwtKey</td>
+<td>string</td>
+<td>true</td>
+<td>Generated jwt key</td>
+</tr>
+</tbody></table>
+<h3 id='using-api-token'>Using API token</h3>
+<p>You need to request an API token to make calls to the Canopy API. Canopy expects for the API token to be included in all requests to the API in a header that looks like the following:</p>
+
+<p><code>Authorization: Bearer eyaasd456FFGDFGdfgdfgdfgdfg7sdyfg35htjl3bhef89y4rjkbergv-KAj-dGh0xEuZftO_Utm6dugKQ</code></p>
+<h1 id='refresh-secret-key'>Refresh Secret Key</h1><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/refresh</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">secretKey</span><span class="p">:</span> <span class="dl">"</span><span class="s2">new_secret_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"secretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_secret_key"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint may be called to change current <code>secretKey</code> (which is required for <code>jwtKey</code> generation) and get back freshly generated one. Accepts currently active <code>secretKey</code> in request body. After receiving successful response with new <code>secretKey</code>, previous <code>secretKey</code> becomes stale and should not be used for <code>jwtKey</code> generation.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client/refresh</code></p>
+<h3 id='body-parameters-2'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>secretKey</td>
+<td>string</td>
+<td>true</td>
+<td>Currently active secret key</td>
+</tr>
+</tbody></table>
+<h1 id='prefill-user-39-s-rent-passport-with-existing-data'>Prefill User&#39;s Rent Passport with Existing Data</h1>
+<p>If you already have some user information, such as identity, income and (or) rent, you can send it Canopy, so we will prefill the user&#39;s Rent Passport with provided data.</p>
+<h2 id='set-identity'>Set Identity</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client-user-data/set-identity</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">example@email.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">firstName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FirstName</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">middleName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MiddleName</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">lastName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LastName</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">dateOfBirth</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2000-03-05</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">phone</span><span class="p">:</span> <span class="dl">"</span><span class="s2">88002553535</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">addresses</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">startDate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-09-01</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">flat</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">houseNumber</span><span class="p">:</span> <span class="dl">"</span><span class="s2">113</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">street</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Street Name</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">countryCode</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GB</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">town</span><span class="p">:</span> <span class="dl">"</span><span class="s2">London</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">postCode</span><span class="p">:</span> <span class="dl">"</span><span class="s2">M1 1AE</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@email.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FirstName"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"middleName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MiddleName"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LastName"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateOfBirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-03-05"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88002553535"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-09-01"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"flat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Newton Street"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"town"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Manchester"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"postCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M1 1AE"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client-user-data/set-identity</code></p>
+<h3 id='body-parameters-3'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string</td>
+<td>true</td>
+<td>Date format: YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>addresses</td>
+<td>array</td>
+<td>true</td>
+<td>Array of addresses. See address data structure below</td>
+</tr>
+</tbody></table>
+<h3 id='address-data-structure'>Address data structure</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>startDate</td>
+<td>string</td>
+<td>true</td>
+<td>Date format: YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>flat</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>houseNumber</td>
+<td>string</td>
+<td>true if houseName is not present</td>
+<td></td>
+</tr>
+<tr>
+<td>houseName</td>
+<td>string</td>
+<td>true if houseNumber is not present</td>
+<td></td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>countryCode</td>
+<td>string</td>
+<td>true</td>
+<td>You can see list of available country codes <a href="https://github.com/insurestreetltd/canopy-apidocs#set-identity">in our apidocs repository</a></td>
+</tr>
+<tr>
+<td>county</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>town</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>postCode</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>line1</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>line2</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>line3</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='set-income'>Set Income</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client-user-data/set-income</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">example@email.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">income</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">incomeSource</span><span class="p">:</span> <span class="dl">"</span><span class="s2">EMPLOYED</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">annualSalary</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+          <span class="na">paymentFrequency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MONTHLY</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">employment</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">companyName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Comapny name</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">jobTitle</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Job title</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">employmentStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FULL_TIME</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">employmentBasis</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CONTRACT</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">startDate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-09-01</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clientId"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@email.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"income"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"incomeSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EMPLOYED"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"annualSalary"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"paymentFrequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MONTHLY"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"employment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Comapny name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"jobTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Job title"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"employmentStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL_TIME"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"employmentBasis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONTRACT"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-09-01"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client-user-data/set-income</code></p>
+<h3 id='body-parameters-4'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>object</td>
+<td>true</td>
+<td>Object with <code>income</code> field</td>
+</tr>
+</tbody></table>
+
+<p><code>data</code> field structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>income</td>
+<td>array</td>
+<td>true</td>
+<td>Array on income objects. Must contain minimum 1 item. See list of possible income objects below</td>
+</tr>
+</tbody></table>
+<h3 id='possible-income-objects'>Possible income objects</h3>
+<p><b>&quot;EMPLOYED&quot; type:</b></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>incomeSource</td>
+<td>&quot;EMPLOYED&quot;</td>
+<td>true</td>
+<td>Income source field with value &quot;EMPLOYED&quot;</td>
+</tr>
+<tr>
+<td>annualSalary</td>
+<td>integer</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>paymentFrequency</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;MONTHLY&quot;, &quot;TWO_WEEKLY&quot;, &quot;WEEKLY&quot;]</td>
+</tr>
+<tr>
+<td>additionalInfo</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>employment</td>
+<td>object</td>
+<td>true</td>
+<td>Object with employment data. See employment field structure below</td>
+</tr>
+</tbody></table>
+
+<p>Employment object structure for income source with &quot;EMPLOYED&quot; type:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>companyName</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>jobTitle</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>employmentStatus</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;FULL_TIME&quot;, &quot;PART_TIME&quot;]</td>
+</tr>
+<tr>
+<td>employmentBasis</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;PERMANENT&quot;, &quot;CONTRACT&quot;]</td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>string</td>
+<td>true</td>
+<td>Date format: YYYY-MM-DD</td>
+</tr>
+</tbody></table>
+
+<p><b>&quot;SELF_EMPLOYED&quot; type:</b></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>incomeSource</td>
+<td>&quot;SELF_EMPLOYED&quot;</td>
+<td>true</td>
+<td>Income source field with value &quot;SELF_EMPLOYED&quot;</td>
+</tr>
+<tr>
+<td>annualSalary</td>
+<td>integer</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>paymentFrequency</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;MONTHLY&quot;, &quot;TWO_WEEKLY&quot;, &quot;WEEKLY&quot;]</td>
+</tr>
+<tr>
+<td>additionalInfo</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>employment</td>
+<td>object</td>
+<td>true</td>
+<td>Object with employment data. See employment field structure below</td>
+</tr>
+</tbody></table>
+
+<p>Employment object structure for income source with &quot;SELF_EMPLOYED&quot; type:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>incomeName</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>jobTitle</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>string</td>
+<td>true</td>
+<td>Date format: YYYY-MM-DD</td>
+</tr>
+</tbody></table>
+
+<p><b>&quot;STUDENT&quot; type:</b></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>incomeSource</td>
+<td>&quot;STUDENT&quot;</td>
+<td>true</td>
+<td>Income source field with value &quot;STUDENT&quot;</td>
+</tr>
+<tr>
+<td>annualSalary</td>
+<td>integer</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>paymentFrequency</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;MONTHLY&quot;, &quot;TWO_WEEKLY&quot;, &quot;WEEKLY&quot;, &quot;OTHER&quot;]</td>
+</tr>
+<tr>
+<td>additionalInfo</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>employment</td>
+<td>object</td>
+<td>true</td>
+<td>Object with employment data. See employment field structure below</td>
+</tr>
+</tbody></table>
+
+<p>Employment object structure for income source with &quot;EMPLOYED&quot; type:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>educationalInstitutionName</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>grantsAvailability</td>
+<td>boolean</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>string</td>
+<td>true</td>
+<td>Date format: YYYY-MM-DD</td>
+</tr>
+</tbody></table>
+
+<p><b>&quot;RETIRED&quot;, &quot;UNEMPLOYED&quot;, &quot;BENEFITS&quot; or &quot;OTHER&quot; type</b></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>incomeSource</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;RETIRED&quot;, &quot;UNEMPLOYED&quot;, &quot;BENEFITS&quot;, &quot;OTHER&quot;]</td>
+</tr>
+<tr>
+<td>annualSalary</td>
+<td>integer</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>paymentFrequency</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;MONTHLY&quot;, &quot;TWO_WEEKLY&quot;, &quot;WEEKLY&quot;, &quot;OTHER&quot;]</td>
+</tr>
+<tr>
+<td>additionalInfo</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>employment</td>
+<td>object</td>
+<td>true</td>
+<td>Object with employment data. See employment field structure below</td>
+</tr>
+</tbody></table>
+
+<p>Employment object structure for income source with &quot;EMPLOYED&quot; type:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>incomeName</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>startDate</td>
+<td>string</td>
+<td>true</td>
+<td>Date format: YYYY-MM-DD</td>
+</tr>
+</tbody></table>
+<h2 id='set-rent'>Set Rent</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client-user-data/set-rent</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">example@email.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">homeowner</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="na">rentsDuringLastYear</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">rents</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Rent name</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">paymentFrequency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MONTHLY</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">rentPaymentAmount</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+          <span class="na">rentPaidTo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Paid to</span><span class="dl">"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clientId"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@email.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rentData"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"homeowner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"rentsDuringLastYear"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"rents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rent name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"paymentFrequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MONTHLY"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"rentPaymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"rentPaidTo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid to"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client-user-data/set-rent</code></p>
+<h3 id='body-parameters-5'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>data</td>
+<td>object</td>
+<td>true</td>
+<td>Object with rent data</td>
+</tr>
+</tbody></table>
+<h3 id='data-field-structure'>data field structure</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>homeowner</td>
+<td>boolean</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>rentsDuringLastYear</td>
+<td>boolean</td>
+<td>true</td>
+<td>Object with rent data</td>
+</tr>
+<tr>
+<td>rents</td>
+<td>array</td>
+<td>true if rentsDuringLastYear is true</td>
+<td>Array of rents during last year. Minimum 1 item</td>
+</tr>
+</tbody></table>
+<h3 id='rents-item-structure'>Rents item structure</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>paymentFrequency</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;MONTHLY&quot;, &quot;TWO_WEEKLY&quot;, &quot;WEEKLY&quot;, &quot;OTHER&quot;]</td>
+</tr>
+<tr>
+<td>rentPaymentAmount</td>
+<td>integer</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>rentPaidTo</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id='referencing-endpoints'>Referencing Endpoints</h1><h2 id='get-the-list-of-branches'>Get the List of Branches</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/branches-list</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"branches"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"canopyBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"clientBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Branch 1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"af380cca-e2a6-4cc2-8abc-99889f4e787f"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apartment 9"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113 Street name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line3"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Street name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"town"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"postCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M1 1AE"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"flat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"district"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"houseName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"canopyBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"818e8ad7-97aa-460d-a007-6b65830ace5b"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"clientBranchId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Branch 2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"af380cca-e2a6-4cc2-8abc-99889f4e787f"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apartment 9"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113 Street name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line3"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Street name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"town"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"postCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M1 1AE"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"flat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"district"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"houseName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint returns the list of client&#39;s branches mapped with Canopy branches.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET /referencing-requests/client/:clientId/branches-list</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+</tbody></table>
+<h2 id='link-branch'>Link Branch</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/link-branch</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">canopyBranchId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">592954da-4ea7-426b-ace3-f61dbc169ea4</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">clientBranchId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">592954da-4ea7-426b-ace3-f61dbc169ea4</span><span class="dl">"</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"canopyBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"clientBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"branchName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Branch 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"branchAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"af380cca-e2a6-4cc2-8abc-99889f4e787f"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apartment 9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"line2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113 Street name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"line3"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Street name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"town"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"postCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M1 1AE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"district"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"houseName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint links existing Canopy branch with client&#39;s branch.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client/:clientId/link-branch</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+</tbody></table>
+<h2 id='delete-branch-mapping'>Delete Branch Mapping</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientBranchId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_branch_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/branch-mapping/</span><span class="p">${</span><span class="nx">clientBranchId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DELETE</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"clientBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint deletes existing branch mapping between Canopy and client.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>DELETE /referencing-requests/client/:clientId/branch-mapping/:clientBranchId</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+<tr>
+<td>clientBranchId</td>
+<td>id of the branch linked with the Canopy branch</td>
+</tr>
+</tbody></table>
+<h2 id='request-referencing'>Request Referencing</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/request</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@email.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">firstName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">First name</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">middleName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Middle name</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">lastName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Last name</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">callbackUrl</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://callbackurl.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">requestType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RENTER_SCREENING</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">itemType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FULL</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Title</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">phone</span><span class="p">:</span> <span class="dl">"</span><span class="s2">88002553535</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">branchId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">branch_id</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">clientReferenceId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">12346</span><span class="dl">"</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"canopyReferenceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"canopy_reference_id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client/:clientId/request</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+</tbody></table>
+<h3 id='body-parameters-6'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>callbackUrl</td>
+<td>string</td>
+<td>true</td>
+<td>URL to which Canopy will send PDF Report</td>
+</tr>
+<tr>
+<td>requestType</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;RENTER_SCREENING&quot;, &quot;GUARANTOR_SCREENING&quot;]</td>
+</tr>
+<tr>
+<td>itemType</td>
+<td>string</td>
+<td>true</td>
+<td>One of [&quot;INSTANT&quot;, &quot;FULL&quot;]</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>false</td>
+<td>Title that is used before a surname or full name</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>branchId</td>
+<td>string</td>
+<td>false</td>
+<td>An identifier of the client&#39;s branch which requests the user</td>
+</tr>
+<tr>
+<td>clientReferenceId</td>
+<td>string</td>
+<td>false</td>
+<td>A unique identifier on the client&#39;s side</td>
+</tr>
+</tbody></table>
+<h2 id='rent-passport-retrieval'>Rent Passport Retrieval</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">documentId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">document_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/documents/</span><span class="p">${</span><span class="nx">documentId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Once referencing has been completed by the renter in the Canopy mobile application, an update message will be sent to the <code>callbackUrl</code> provided at the moment of referencing request. This message will have the following structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientReferenceId</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>canopyReferenceId</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>document</td>
+<td>object</td>
+<td>Object with document data. See document object structure below</td>
+</tr>
+</tbody></table>
+
+<p>Document data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentType</td>
+<td>integer</td>
+<td>One of [0, 1]. 0 means INSTANT screening type, 1 means FULL screening type.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td><code>/referencing-requests/client/:clientId/documents/:documentId</code></td>
+</tr>
+<tr>
+<td>maxRent</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>One of [INSTANT, FULL]</td>
+</tr>
+</tbody></table>
+
+<p>To retrieve a PDF Rent Passport after successful referencing completion, you can use the url field from the above response:</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>GET /referencing-requests/client/:clientId/documents/:documentId</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+<tr>
+<td>documentId</td>
+<td>The ID of the document returned from the document update</td>
+</tr>
+</tbody></table>
+
+<p>The PDF will be included in the response body with the filename specified in the header as follows:</p>
+
+<p><code>content-type: application/pdf</code> <br>
+<code>content-disposition: attachment; filename=&#39;9e6222ee-312b-2297-a03a-07700363a6b6_FULL.pdf&#39;</code></p>
+<h2 id='get-intermediate-pdf-report'>Get Intermediate PDF Report</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">canopyReferenceId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_reference_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/rent-passport/</span><span class="p">${</span><span class="nx">canopyReferenceId</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed.</p>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>GET /referencing-requests/client/:clientId/rent-passport/:canopyReferenceId</code></p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+<tr>
+<td>canopyReferenceId</td>
+<td>The id of registered request on the Canopy side</td>
+</tr>
+</tbody></table>
+
+<p>Also, this endpoint may accept ?format=json query param to return RP in json format, in other cases returns pdf.</p>
+<h1 id='webhooks-endpoints'>Webhooks Endpoints</h1><h2 id='register-webhook'>Register Webhook</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/webhook/register</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PASSPORT_STATUS_UPDATES</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">callbackUrl</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://callbackurl.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">additionalSettings</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">INCOME</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">RENT</span><span class="dl">"</span><span class="p">]</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"webhookType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSPORT_STATUS_UPDATES"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"callbackUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://callbackurl.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint registers the webhook with the appropriate type in Canopy system. After that, Rent Passport updates will be sent to the specified callback url.</p>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>POST /referencing-requests/client/:clientId/webhook/register</code></p>
+<h3 id='url-parameters-7'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+</tbody></table>
+<h3 id='body-parameters-7'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>true</td>
+<td>Specifies which type of updates will be sent from Canopy. Could be one of [&quot;PASSPORT_STATUS_UPDATES&quot;, &quot;REQUEST_STATUS_UPDATES&quot;].</td>
+</tr>
+<tr>
+<td>callbackUrl</td>
+<td>string</td>
+<td>true</td>
+<td>The URL of the webhook endpoint</td>
+</tr>
+<tr>
+<td>additionalSettings</td>
+<td>string[]</td>
+<td>false</td>
+<td>List of Rent Passport sections for which updates will be sent. This field should only be added in case &quot;PASSPORT_STATUS_UPDATES&quot; webhook type is specified. The following sections can be specified inside the array: [&quot;INCOME&quot;, &quot;RENT&quot;, &quot;CREDIT_CHECK&quot;, &quot;SAVINGS&quot;, &quot;RENTAL_PREFERENCES&quot;, &quot;EMPLOYEE_REFERENCE&quot;, &quot;LANDLORD_REFERENCE&quot;]. There is no need to explicitly specify the names of all sections if you want to receive all updates, just send an empty array - [].</td>
+</tr>
+</tbody></table>
+<h3 id='event-types'>Event types</h3>
+<p>If you subscribed to the <code>REQUEST_STATUS_UPDATES</code> type, the updates will be sent to the <code>callbackUrl</code> each time one of the following events trigger:</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>INVITED</code></td>
+<td>The user was invited to connect</td>
+</tr>
+<tr>
+<td><code>INVITE_RESENT</code></td>
+<td>Resent invitation email for the user</td>
+</tr>
+<tr>
+<td><code>CONNECTED</code></td>
+<td>User accepts the connection</td>
+</tr>
+<tr>
+<td><code>CONNECTION_REJECTED</code></td>
+<td>User rejects the connection</td>
+</tr>
+<tr>
+<td><code>CONNECTION_STOPPED</code></td>
+<td>User stops the connection</td>
+</tr>
+<tr>
+<td><code>SENDING_COMPLETED_PASSPORT_FAILED</code></td>
+<td>Sending the completed passport to client failed</td>
+</tr>
+<tr>
+<td><code>PASSPORT_COMPLETED</code></td>
+<td>User complete his passport and the document was sent</td>
+</tr>
+<tr>
+<td><code>INVALID_APPLICATION_DETAILS</code></td>
+<td>Client&#39;s request body with application details was invalid</td>
+</tr>
+</tbody></table>
+
+<p>Once <code>REQUEST_STATUS_UPDATES</code> event trigger, the Canopy should sent the notification to <code>callbackUrl</code> in the following format:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>canopyReferenceId</td>
+<td>string</td>
+</tr>
+<tr>
+<td>clientReferenceId</td>
+<td>string</td>
+</tr>
+<tr>
+<td>notes</td>
+<td>string</td>
+</tr>
+</tbody></table>
+
+<p>If you are subscribed to the <code>PASSPORT_STATUS_UPDATES</code> type, the updates will be sent to the <code>callbackUrl</code> when one of the following Rent Passport sections is updated (if updates for this section requested):</p>
+
+<table><thead>
+<tr>
+<th>Section</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>CREDIT CHECK</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>INCOME</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>RENT</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SAVINGS</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>LANDLORD REFERENCE</code></td>
+<td>optional, only if <code>FULL SCREENING</code> requested</td>
+</tr>
+<tr>
+<td><code>EMPLOYER REFERENCE</code></td>
+<td>optional, only if <code>FULL SCREENING</code> requested</td>
+</tr>
+</tbody></table>
+<h3 id='notification-format'>Notification format</h3>
+<p>Once <code>PASSPORT_STATUS_UPDATES</code> event trigger, the Canopy should sent the notification to <code>callbackUrl</code> in the following format:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>canopyReferenceId</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>clientReferenceId</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>updatedSection</td>
+<td>object</td>
+<td>Object with updated section data. See <code>updatedSection</code> data structure below</td>
+</tr>
+<tr>
+<td>instant</td>
+<td>object</td>
+<td>Object with instant data. See <code>instant</code> data structure below</td>
+</tr>
+<tr>
+<td>full</td>
+<td>object</td>
+<td>Optional field, sent only if <code>FULL SCREENING</code> requested. See <code>full</code> data structure below</td>
+</tr>
+<tr>
+<td>globalStatus</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;ACCEPT&quot;, &quot;CONSIDER&quot;, &quot;HIGH_RISK&quot;]</td>
+</tr>
+</tbody></table>
+
+<p><code>updatedSection</code> data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>One of [&quot;INCOME&quot;, &quot;RENT&quot;, &quot;CREDIT_CHECK&quot;, &quot;SAVINGS&quot;, &quot;EMPLOYEE_REFERENCE&quot;, &quot;LANDLORD_REFERENCE&quot;]</td>
+</tr>
+<tr>
+<td>newStatus</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+<tr>
+<td>updatedAt</td>
+<td>ISODateTime</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p><code>instant</code> data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;ACCEPT&quot;, &quot;CONSIDER&quot;, &quot;HIGH_RISK&quot;]</td>
+</tr>
+<tr>
+<td>sections</td>
+<td>object</td>
+<td>Object with sections data. See instant <code>sections</code> data structure below</td>
+</tr>
+</tbody></table>
+
+<p>Instant <code>sections</code> data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>income</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+<tr>
+<td>rent</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+<tr>
+<td>creditCheck</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+<tr>
+<td>savings</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+</tbody></table>
+
+<p><code>full</code> data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;ACCEPT&quot;, &quot;CONSIDER&quot;, &quot;HIGH_RISK&quot;]</td>
+</tr>
+<tr>
+<td>sections</td>
+<td>object</td>
+<td>Object with sections data. See full <code>sections</code> data structure below</td>
+</tr>
+</tbody></table>
+
+<p>Full <code>sections</code> data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>employerReference</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+<tr>
+<td>landlordReference</td>
+<td>string</td>
+<td>One of [&quot;NOT_STARTED&quot;, &quot;IN_PROGRESS&quot;, &quot;DONE&quot;]</td>
+</tr>
+</tbody></table>
+<h2 id='unregister-webhook'>Unregister Webhook</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">webhookType</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">webhook_type</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/webhook/</span><span class="p">${</span><span class="nx">webhookType</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DELETE</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">authorization_token</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"webhookType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSPORT_STATUS_UPDATES"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint unregisters webhook and stops sending Rent Passport updates to the specified callback URL.</p>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>DELETE /referencing-requests/client/:clientId/webhook/:webhookType</code></p>
+<h3 id='url-parameters-8'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Your client reference</td>
+</tr>
+<tr>
+<td>webhookType</td>
+<td>The type of the webhook you want to unregister</td>
+</tr>
+</tbody></table>
+<h1 id='errors'>Errors</h1>
+<p>We use conventional HTTP response codes to indicate the success or failure of an API request, typically one of:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>2xx</td>
+<td>Indicates success</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>Indicates a client error with information provided (missign required parameters etc..)</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>Indicates an error with the Canopy platform</td>
+</tr>
+</tbody></table>
+
+<p>We suggest you wrap 4xx errors in your client and provide a user friendly message to your end users as part of the integration.</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
