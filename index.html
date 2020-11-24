@@ -357,7 +357,7 @@
             <a href="#referencing-endpoints" class="toc-h1 toc-link" data-title="Referencing Endpoints">Referencing Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-the-list-of-branches" class="toc-h2 toc-link" data-title="Get the List of Branches">Get the List of Branches</a>
+                    <a href="#get-the-list-of-branches-and-connections" class="toc-h2 toc-link" data-title="Get the List of Branches and Connections">Get the List of Branches and Connections</a>
                   </li>
                   <li>
                     <a href="#link-branch" class="toc-h2 toc-link" data-title="Link Branch">Link Branch</a>
@@ -1258,7 +1258,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='referencing-endpoints'>Referencing Endpoints</h1><h2 id='get-the-list-of-branches'>Get the List of Branches</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+<h1 id='referencing-endpoints'>Referencing Endpoints</h1><h2 id='get-the-list-of-branches-and-connections'>Get the List of Branches and Connections</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
@@ -1322,7 +1322,7 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint returns the list of client&#39;s branches mapped with Canopy branches.</p>
+<p>The endpoint below returns the list of canopy branches associated with <code>clientId</code> and connections with client branches. Canopy branch might be linked with some client branch, in this case <code>clientBranchId</code> value will contain id of the client branch. If canopy branch linked with multiple client branches, then same canopy branch will appear in the list multiple times with different <code>clientBranchId</code>. If canopy branch is not linked to any client branch, then <code>clientBranchId</code> will be equal to <code>null</code>.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET /referencing-requests/client/:clientId/branches-list</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -1335,6 +1335,77 @@
 <tr>
 <td>clientId</td>
 <td>Your client reference</td>
+</tr>
+</tbody></table>
+<h3 id='response-structure'>Response Structure</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>bool</td>
+<td>Request status</td>
+</tr>
+<tr>
+<td>requestId</td>
+<td>string</td>
+<td>Request id</td>
+</tr>
+<tr>
+<td>data</td>
+<td>object</td>
+<td>Object that contains branches field with list of branches</td>
+</tr>
+</tbody></table>
+
+<p>Data object structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>branches</td>
+<td>array</td>
+<td>List of branches</td>
+</tr>
+</tbody></table>
+
+<p>Single branch data structure:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>canopyBranchId</td>
+<td>string</td>
+<td>id of the branch in the Canopy system</td>
+</tr>
+<tr>
+<td>clientBranchId</td>
+<td>string or null</td>
+<td>id of the client&#39;s branch that is linked with this canopy branch, if equals null than this canopy branch is not linked with any client branch branch</td>
+</tr>
+<tr>
+<td>branchName</td>
+<td>string</td>
+<td>The name of the Canopy branch</td>
+</tr>
+<tr>
+<td>branchAddress</td>
+<td>object</td>
+<td>Object that contains information about branch address. You can see example of the address structure in the code example</td>
 </tr>
 </tbody></table>
 <h2 id='link-branch'>Link Branch</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
