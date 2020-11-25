@@ -1300,9 +1300,28 @@
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"canopyBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"clientBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0830f800-b5d2-4e16-aede-411cb5f3c58b"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Branch 2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"af380cca-e2a6-4cc2-8abc-99889f4e787f"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apartment 9"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113 Street name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"line3"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Street name"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"town"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"postCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M1 1AE"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"flat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"district"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"113"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"houseName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
         </span><span class="nl">"canopyBranchId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"818e8ad7-97aa-460d-a007-6b65830ace5b"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"clientBranchId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"branchName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Branch 2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"branchName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Branch 3"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"branchAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"af380cca-e2a6-4cc2-8abc-99889f4e787f"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"line1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apartment 9"</span><span class="p">,</span><span class="w">
@@ -1453,7 +1472,7 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint links existing Canopy branch with client&#39;s branch.</p>
+<p>Thish endpoint links existing Canopy branch with client&#39;s branch. This operation is required for <a href="https://insurestreetltd.github.io/canopy-apidocs/#request-referencing">referencing request</a>. <code>clientBranchId</code> should be unique, so there can be only one connection with specific client branch. <code>canopyBranchId</code> can be used in multiple connections, so there can be multiple connections between single canopy branch and multiple client&#39;s branches.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST /referencing-requests/client/:clientId/link-branch</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
@@ -1466,6 +1485,25 @@
 <tr>
 <td>clientId</td>
 <td>Your client reference</td>
+</tr>
+</tbody></table>
+<h3 id='body-parameters-6'>Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>canopyBranchId</td>
+<td>string</td>
+<td>id of the Canopy branch, you can get list of possible branches using <a href="https://insurestreetltd.github.io/canopy-apidocs/#get-the-list-of-branches-and-connections">GET /bracnhes-list endpoint</a></td>
+</tr>
+<tr>
+<td>clientBranchId</td>
+<td>string</td>
+<td>id of the branch in the client&#39;s system, it can be any string of uuid format and should be unique</td>
 </tr>
 </tbody></table>
 <h2 id='delete-branch-mapping'>Delete Branch Mapping</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
@@ -1494,7 +1532,7 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes existing branch mapping between Canopy and client.</p>
+<p>This endpoint deletes existing branch mapping between Canopy branch and client branch.</p>
 <h3 id='http-request-8'>HTTP Request</h3>
 <p><code>DELETE /referencing-requests/client/:clientId/branch-mapping/:clientBranchId</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
@@ -1548,7 +1586,9 @@
   </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request_id"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"canopyReferenceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"canopy_reference_id"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='http-request-9'>HTTP Request</h3>
+</span></code></pre></div>
+<p>This endpoint creates new referencing request.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST /referencing-requests/client/:clientId/request</code></p>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
@@ -1562,7 +1602,7 @@
 <td>Your client reference</td>
 </tr>
 </tbody></table>
-<h3 id='body-parameters-6'>Body Parameters</h3>
+<h3 id='body-parameters-7'>Body Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1629,7 +1669,7 @@
 <td>branchId</td>
 <td>string</td>
 <td>false</td>
-<td>An identifier of the client&#39;s branch which requests the user</td>
+<td>clientBranchId that is connected to any canopy branch, you can get list of created connections using <a href="https://insurestreetltd.github.io/canopy-apidocs/#get-the-list-of-branches-and-connections">GET /bracnhes-list endpoint</a>, if there&#39;s no connection created with such branchId then this API call will return 404 error, new connection can be created using <a href="https://insurestreetltd.github.io/canopy-apidocs/#link-branch">POST /link-branch endpoint</a>, if no branchId is passed than default branch will be used for the referencing request</td>
 </tr>
 <tr>
 <td>clientReferenceId</td>
@@ -1818,7 +1858,7 @@
 <td>Your client reference</td>
 </tr>
 </tbody></table>
-<h3 id='body-parameters-7'>Body Parameters</h3>
+<h3 id='body-parameters-8'>Body Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
