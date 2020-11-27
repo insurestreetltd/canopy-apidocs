@@ -1258,7 +1258,29 @@
 <td></td>
 </tr>
 </tbody></table>
-<h1 id='referencing-endpoints'>Referencing Endpoints</h1><h2 id='get-the-list-of-branches-and-connections'>Get the List of Branches and Connections</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+<h1 id='referencing-endpoints'>Referencing Endpoints</h1>
+<p>Inside the Canopy system, there are 3 main entities: company, branch and agent. All communications between the agents and renters happen on the branch level, not on the company level. It means that each company must have at least one branch (let’s call it <em>default</em>), so all existing or new agents should belong to the particular branch(es) in order to work with the potential or actual renters. For example, if the agent belongs to <strong>Branch 1</strong> and this agent sends the invite to the potential renter, actually the invite is sent from <strong>Branch 1</strong>, not directly from the agent or <strong>Company</strong>.</p>
+
+<p align="center"><img src="images/company-branch-d1372dc9.svg" /></p>
+
+<p>Therefore, in order to work with us, we create a Company and the default Branch for you at the very beginning. On the basic level, it’s enough for the correct workflow. There are the following possible scenarios:</p>
+
+<ul>
+<li><strong>You work on the Company level and don’t have such concept as Branch</strong>: </br>
+In that case, there is no need to Link your branches with Canopy branches. For all the internal interactions, we will use the default branch (<strong>Branch 1</strong>) created for you.</li>
+<li><strong>Beside the Company, you have one Branch as well so you work on the Branch level as we do</strong>: </br>
+In that case, you can link your single branch with our default branch, but it’s also an optional step. Anyway, we will use the default <strong>Branch 1</strong> for our internal communication with the renters.</li>
+<li><p><strong>Beside the Company, you have several branches so you work on the Branch level as we do:</strong> </br>
+This is basically the same approach which is used inside the Canopy system. In order to request a reference for the particular renter, you can either: </p>
+
+<ul>
+<li>Use the default branch, which is already created in the Canopy</li>
+<li>Preliminary create an additional branches (Branch 2, Branch 3, …, Branch N) in Canopy system and then link/map them with your own branches.</li>
+</ul>
+
+<p></br>After that, at the moment of requesting a reference from Canopy for the user, you can specify the branch to which this reference should be attached. But again, this step of branch mapping is an optional step. If you don’t want to link anything, just skip the Branch Linking step so that we will always use the default branch for the internal interactions with renter.</p></li>
+</ul>
+<h2 id='get-the-list-of-branches-and-connections'>Get the List of Branches and Connections</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
