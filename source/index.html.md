@@ -912,6 +912,53 @@ Get Screening Results of the renter, even if Passport is not completed. When you
 
 Also, this endpoint may accept ?format=json query param to return RP in json format, in other cases returns pdf.
 
+## Revoke Guarantor Request
+
+```javascript
+const axios = require("axios");
+
+const canopyEndpointBaseUri = "canopy_base_uri";
+const clientId = "client_id";
+const webhookType = "webhook_type";
+
+axios({
+  url: `${canopyEndpointBaseUri}/referencing-requests/client/${clientId}/revoke-guarantor-request`,
+  method: "DELETE",
+  headers: {
+    "Authorization": "authorization_token"
+    "x-api-key": "api_key",
+  },
+  data: {
+    email: "example@email.com",
+});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+This endpoint revokes guarantor request for the specified user.
+
+### HTTP Request
+
+`DELETE /referencing-requests/client/:clientId/revoke-guarantor-request`
+
+### URL Parameters
+
+| Parameter | Description           |
+| --------- | --------------------- |
+| clientId  | Your client reference |
+
+### Body Parameters
+
+| Parameter | Type   | Required | Description |
+| --------- | ------ | -------- | ----------- |
+| email     | string | true     |             |
+
 # Webhooks Endpoints
 
 ## Register Webhook
@@ -1093,50 +1140,3 @@ This endpoint unregisters webhook and stops sending Rent Passport updates to the
 | ----------- | ---------------------------------------------- |
 | clientId    | Your client reference                          |
 | webhookType | The type of the webhook you want to unregister |
-
-## Revoke Guarantor Request
-
-```javascript
-const axios = require("axios");
-
-const canopyEndpointBaseUri = "canopy_base_uri";
-const clientId = "client_id";
-const webhookType = "webhook_type";
-
-axios({
-  url: `${canopyEndpointBaseUri}/referencing-requests/client/${clientId}/revoke-guarantor-request`,
-  method: "DELETE",
-  headers: {
-    "Authorization": "authorization_token"
-    "x-api-key": "api_key",
-  },
-  data: {
-    email: "example@email.com",
-});
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "success": true
-}
-```
-
-This endpoint revokes guarantor request for the specified user.
-
-### HTTP Request
-
-`DELETE /referencing-requests/client/:clientId/revoke-guarantor-request`
-
-### URL Parameters
-
-| Parameter | Description           |
-| --------- | --------------------- |
-| clientId  | Your client reference |
-
-### Body Parameters
-
-| Parameter | Type   | Required | Description |
-| --------- | ------ | -------- | ----------- |
-| email     | string | true     |             |

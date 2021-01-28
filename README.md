@@ -881,6 +881,46 @@ canopyReferenceId – the id of registered request on the Canopy side,
 Also, this endpoint may accept ?format=json query param to return RP in json format, in other cases returns pdf.
 ```
 
+### Revoke Guarantor Request
+
+The endpoint below revokes guarantor request for the specified user.
+
+```
+DELETE /referencing-requests/client/:clientId/revoke-guarantor-request
+```
+
+Parameters:
+
+```
+clientId: your client reference,
+```
+
+Request body:
+
+```
+email: string (required),
+```
+
+Successful response body:
+
+```
+"success": true,
+```
+
+Unsuccessful response body:
+
+```
+/* If guarantor request has already been revoked for the specified email */
+
+"success": false,
+"requestId" — the identifier of the request,
+"error": {
+  "status": 409,
+  "type" — error type,
+  "message" — “Additional option NEED_GUARANTOR has already been revoked for email: {email}”,
+}
+```
+
 ## Webhooks Endpoints
 
 ### Register Webhook
@@ -1022,46 +1062,6 @@ Unsuccessful response body:
   "status": 404,
   "type" — error type,
   "message" — “No webhooks of the specified type found”,
-}
-```
-
-### Revoke Guarantor Request
-
-The endpoint below revokes guarantor request for the specified user.
-
-```
-DELETE /referencing-requests/client/:clientId/revoke-guarantor-request
-```
-
-Parameters:
-
-```
-clientId: your client reference,
-```
-
-Request body:
-
-```
-email: string (required),
-```
-
-Successful response body:
-
-```
-"success": true,
-```
-
-Unsuccessful response body:
-
-```
-/* If guarantor request has already been revoked for the specified email */
-
-"success": false,
-"requestId" — the identifier of the request,
-"error": {
-  "status": 409,
-  "type" — error type,
-  "message" — “Additional option NEED_GUARANTOR has already been revoked for email: {email}”,
 }
 ```
 
