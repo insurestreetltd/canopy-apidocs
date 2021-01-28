@@ -616,22 +616,23 @@ rentData: {
 
 ## Referencing Endpoints
 
-Inside the Canopy system, there are 3 main entities: company, branch and agent. All communications between the agents and renters happen on the branch level, not on the company level. It means that each company must have at least one branch (let’s call it *default*), so all existing or new agents should belong to the particular branch(es) in order to work with the potential or actual renters. For example, if the agent belongs to **Branch 1** and this agent sends the invite to the potential renter, actually the invite is sent from **Branch 1**, not directly from the agent or **Company**.
+Inside the Canopy system, there are 3 main entities: company, branch and agent. All communications between the agents and renters happen on the branch level, not on the company level. It means that each company must have at least one branch (let’s call it _default_), so all existing or new agents should belong to the particular branch(es) in order to work with the potential or actual renters. For example, if the agent belongs to **Branch 1** and this agent sends the invite to the potential renter, actually the invite is sent from **Branch 1**, not directly from the agent or **Company**.
 
 <p align="center"><img src="/company-branch.svg" /></p>
 
 Therefore, in order to work with us, we create a Company and the default Branch for you at the very beginning. On the basic level, it’s enough for the correct workflow. There are the following possible scenarios:
-- **You work on the Company level and don’t have such concept as Branch**: 
-</br> In that case, there is no need to Link your branches with Canopy branches. For all the internal interactions, we will use the default branch (**Branch 1**) created for you.
+
+- **You work on the Company level and don’t have such concept as Branch**:
+  </br> In that case, there is no need to Link your branches with Canopy branches. For all the internal interactions, we will use the default branch (**Branch 1**) created for you.
 - **Beside the Company, you have one Branch as well so you work on the Branch level as we do**:
-</br> In that case, you can link your single branch with our default branch, but it’s also an optional step. Anyway, we will use the default **Branch 1** for our internal communication with the renters.
+  </br> In that case, you can link your single branch with our default branch, but it’s also an optional step. Anyway, we will use the default **Branch 1** for our internal communication with the renters.
 - **Beside the Company, you have several branches so you work on the Branch level as we do:**
-</br>This is basically the same approach which is used inside the Canopy system. In order to request a reference for the particular renter, you can either:
+  </br>This is basically the same approach which is used inside the Canopy system. In order to request a reference for the particular renter, you can either:
+
   - Use the default branch, which is already created in the Canopy
-  - Preliminary create an additional branches (Branch 2, Branch 3, …, Branch N) in Canopy system and then link/map them with your own branches. 
+  - Preliminary create an additional branches (Branch 2, Branch 3, …, Branch N) in Canopy system and then link/map them with your own branches.
 
   After that, at the moment of requesting a reference from Canopy for the user, you can specify the branch to which this reference should be attached. But again, this step of branch mapping is an optional step. If you don’t want to link anything, just skip the Branch Linking step so that we will always use the default branch for the internal interactions with renter.
-
 
 ### Get the List of Branches and Connections
 
@@ -781,6 +782,7 @@ title: string (optional) - it's a title used before a surname or full name,
 phone: string (optional),
 branchId: string (optional) - clientBranchId that is connected to any canopy branch, you can get list of created connections using GET /bracnhes-list endpoint, if there's no connection created with such branchId then this API call will return 404 error, new connection can be created using POST /link-branch endpoint, if no branchId is passed than default branch will be used for the referencing request
 clientReferenceId: string (optional) - this is unique identifier on the client's side
+isGuarantorNeeded: boolean (optional) - Flag allowing to request a guarantor for a specified user (user email in request)
 ```
 
 If a referencing request is registered successfully you will receive the following response:
@@ -833,7 +835,10 @@ document: {
   url: `/referencing-requests/client/:clientId/documents/:documentId`,
   maxRent: number,
   status: string,
-  title: enum - one of [INSTANT, FULL]
+  title: enum - one of [INSTANT, FULL],
+  isGuarantorNeeded: boolean,
+  waitingForGuarantor?: boolean, /* exists if isGuarantorNeeded has true value
+  guarantorCompleteRP?: boolean /* exists if isGuarantorNeeded has true value
 }
 ```
 
@@ -925,9 +930,13 @@ If you subscribed to the `REQUEST_STATUS_UPDATES` type, the updates will be sent
 
 - `SENDING_COMPLETED_PASSPORT_FAILED` - sending the completed passport to client failed;
 
-- `PASSPORT_COMPLETED` - user complete his passport and the document was sent;
+- `PASSPORT_COMPLETED` - user complete his passport and the document was sent. If a guarantor was requested for this user, the status means that user and guarantor complete their passports and the document with both passports was sent;
 
 - `INVALID_APPLICATION_DETAILS` - client's request body with application details was invalid;
+
+- `PASSPORT_COMPLETED_WAITING_FOR_GUARANTOR` - user complete his passport and the document was sent, but the guarantor requested for this user did not complete his passport;
+
+- `GUARANTOR_REQUEST_CANCELLED` - the guarantor request for the specified user was cancelled;
 
 Once `REQUEST_STATUS_UPDATES` event trigger, the Canopy should sent the notification to `callbackUrl` in the following format:
 
@@ -1013,6 +1022,46 @@ Unsuccessful response body:
   "status": 404,
   "type" — error type,
   "message" — “No webhooks of the specified type found”,
+}
+```
+
+### Revoke Guarantor Request
+
+The endpoint below revokes guarantor request for the specified user.
+
+```
+DELETE /referencing-requests/client/:clientId/revoke-guarantor-request
+```
+
+Parameters:
+
+```
+clientId: your client reference,
+```
+
+Request body:
+
+```
+email: string (required),
+```
+
+Successful response body:
+
+```
+"success": true,
+```
+
+Unsuccessful response body:
+
+```
+/* If guarantor request has already been revoked for the specified email */
+
+"success": false,
+"requestId" — the identifier of the request,
+"error": {
+  "status": 409,
+  "type" — error type,
+  "message" — “Additional option NEED_GUARANTOR has already been revoked for email: {email}”,
 }
 ```
 
