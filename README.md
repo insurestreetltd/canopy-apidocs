@@ -773,7 +773,6 @@ Request body:
 ```
 email: string (required),
 firstName: string (optional),
-middleName: string (optional),
 lastName: string (optional),
 callbackUrl: string (required) - URL to which Canopy will send PDF Report,
 requestType: enum (required) - one of [RENTER_SCREENING, GUARANTOR_SCREENING],
@@ -782,7 +781,7 @@ title: string (optional) - it's a title used before a surname or full name,
 phone: string (optional),
 branchId: string (optional) - clientBranchId that is connected to any canopy branch, you can get list of created connections using GET /bracnhes-list endpoint, if there's no connection created with such branchId then this API call will return 404 error, new connection can be created using POST /link-branch endpoint, if no branchId is passed than default branch will be used for the referencing request
 clientReferenceId: string (optional) - this is unique identifier on the client's side
-isGuarantorNeeded: boolean (optional) - Flag allowing to request a guarantor for a specified user (user email in request)
+isGuarantorNeeded: boolean (optional) - Flag allowing to request a guarantor for a specified user (user email in request). Applicable only if requestType = "RENTER_SCREENING"
 ```
 
 If a referencing request is registered successfully you will receive the following response:
@@ -836,10 +835,20 @@ document: {
   maxRent: number,
   status: string,
   title: enum - one of [INSTANT, FULL],
-  isGuarantorNeeded: boolean,
+  isGuarantorReference: boolean, /* exists if requestType of reference request was GUARANTOR_SCREENING
+  isGuarantorNeeded: boolean, /* exists if requestType of reference request was RENTER_SCREENING
   waitingForGuarantor?: boolean, /* exists if isGuarantorNeeded has true value
   guarantorCompleteRP?: boolean /* exists if isGuarantorNeeded has true value
 }
+```
+
+- If `requestType` of reference request is `GUARANTOR_SCREENING`, after the user completes his referencing, the Report will be generated as for the Guarantor.
+- If `isGuarantorNeeded` of reference request is `true`, we will send 1 or 2 Reports:
+  - First case (sending only one Report): Renter and guarantor have completed their Referencings - we send a Report with both data (renter and guarantor).
+  - Second case (sending two Reports): Renter has completed Referencing, but the guarantor is still not presen - we send the Report only with the user's data. After the Guarantor completes the referencing, we will send one more Report with both data (renter and guarantor).
+
+```
+
 ```
 
 To retrieve a PDF Rent Passport after successful referencing completion, you can use the `url` field from the above response:
@@ -866,7 +875,7 @@ content-disposition: attachment; filename='9e6222ee-312b-2297-a03a-07700363a6b6_
 
 ### Get Intermediate PDF Report
 
-Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed.
+Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed. If `requestType` of last reference request for user is `GUARANTOR_SCREENING`, the Report will be generated as for the Guarantor.
 
 ```
 GET /referencing-requests/client/:clientId/rent-passport/:canopyReferenceId

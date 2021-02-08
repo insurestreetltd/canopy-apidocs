@@ -768,7 +768,6 @@ axios({
   data: {
     email: "test@email.com",
     firstName: "First name",
-    middleName: "Middle name",
     lastName: "Last name",
     callbackUrl: "https://callbackurl.com",
     requestType: "RENTER_SCREENING",
@@ -809,7 +808,6 @@ This endpoint creates new referencing request.
 | ----------------- | ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | email             | string  | true     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | firstName         | string  | false    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| middleName        | string  | false    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | lastName          | string  | false    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | callbackUrl       | string  | true     | URL to which Canopy will send PDF Report                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | requestType       | string  | true     | One of ["RENTER_SCREENING", "GUARANTOR_SCREENING"]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -818,7 +816,7 @@ This endpoint creates new referencing request.
 | phone             | string  | false    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | branchId          | string  | false    | clientBranchId that is connected to any canopy branch, you can get list of created connections using [GET /bracnhes-list endpoint](https://insurestreetltd.github.io/canopy-apidocs/#get-the-list-of-branches-and-connections), if there's no connection created with such branchId then this API call will return 404 error, new connection can be created using [POST /link-branch endpoint](https://insurestreetltd.github.io/canopy-apidocs/#link-branch), if no branchId is passed than default branch will be used for the referencing request |
 | clientReferenceId | string  | false    | A unique identifier on the client's side                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| isGuarantorNeeded | boolean | false    | Flag allowing to request a guarantor for a specified user (user email in request)                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| isGuarantorNeeded | boolean | false    | Flag allowing to request a guarantor for a specified user (user email in request). Applicable only if requestType = "RENTER_SCREENING"                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 ## Rent Passport Retrieval
 
@@ -849,16 +847,22 @@ Once referencing has been completed by the renter in the Canopy mobile applicati
 
 Document data structure:
 
-| Parameter           | Type    | Description                                                                 |
-| ------------------- | ------- | --------------------------------------------------------------------------- |
-| documentType        | integer | One of [0, 1]. 0 means INSTANT screening type, 1 means FULL screening type. |
-| url                 | string  | `/referencing-requests/client/:clientId/documents/:documentId`              |
-| maxRent             | integer |                                                                             |
-| status              | string  |                                                                             |
-| title               | string  | One of [INSTANT, FULL]                                                      |
-| isGuarantorNeeded   | boolean |                                                                             |
-| waitingForGuarantor | boolean | Exists if isGuarantorNeeded has true value                                  |
-| guarantorCompleteRP | boolean | Exists if isGuarantorNeeded has true value                                  |
+| Parameter            | Type    | Description                                                                 |
+| -------------------- | ------- | --------------------------------------------------------------------------- |
+| documentType         | integer | One of [0, 1]. 0 means INSTANT screening type, 1 means FULL screening type. |
+| url                  | string  | `/referencing-requests/client/:clientId/documents/:documentId`              |
+| maxRent              | integer |                                                                             |
+| status               | string  |                                                                             |
+| title                | string  | One of [INSTANT, FULL]                                                      |
+| isGuarantorReference | boolean | Exists if requestType of reference request was GUARANTOR_SCREENING          |
+| isGuarantorNeeded    | boolean | Exists if requestType of reference request was RENTER_SCREENING             |
+| waitingForGuarantor  | boolean | Exists if isGuarantorNeeded has true value                                  |
+| guarantorCompleteRP  | boolean | Exists if isGuarantorNeeded has true value                                  |
+
+- If `requestType` of reference request is `GUARANTOR_SCREENING`, after the user completes his referencing, the Report will be generated as for the Guarantor.
+- If `isGuarantorNeeded` of reference request is `true`, we will send 1 or 2 Reports:
+  - First case (sending only one Report): Renter and guarantor have completed their Referencings - we send a Report with both data (renter and guarantor).
+  - Second case (sending two Reports): Renter has completed Referencing, but the guarantor is still not presen - we send the Report only with the user's data. After the Guarantor completes the referencing, we will send one more Report with both data (renter and guarantor).
 
 To retrieve a PDF Rent Passport after successful referencing completion, you can use the url field from the above response:
 
@@ -897,7 +901,7 @@ axios({
 });
 ```
 
-Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed.
+Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed. If `requestType` of last reference request for user is `GUARANTOR_SCREENING`, the Report will be generated as for the Guarantor.
 
 ### HTTP Request
 
