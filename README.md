@@ -845,7 +845,7 @@ document: {
 - If `requestType` of reference request is `GUARANTOR_SCREENING`, after the user completes his referencing, the Report will be generated as for the Guarantor.
 - If `isGuarantorNeeded` of reference request is `true`, we will send 1 or 2 Reports:
   - First case (sending only one Report): Renter and guarantor have completed their Referencings - we send a Report with both data (renter and guarantor).
-  - Second case (sending two Reports): Renter has completed Referencing, but the guarantor is still not presen - we send the Report only with the user's data. After the Guarantor completes the referencing, we will send one more Report with both data (renter and guarantor).
+  - Second case (sending two Reports): Renter has completed Referencing, but the guarantor is still not present - we send the Report only with the user's data. After the Guarantor completes the referencing, we will send one more Report with both data (renter and guarantor).
 
 ```
 
