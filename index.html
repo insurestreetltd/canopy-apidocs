@@ -575,7 +575,7 @@
     </span><span class="nl">"middleName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MiddleName"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LastName"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"dateOfBirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-03-05"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88002553536"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88002553535"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-09-01"</span><span class="p">,</span><span class="w">
@@ -1591,7 +1591,6 @@ This is basically the same approach which is used inside the Canopy system. In o
   <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test@email.com</span><span class="dl">"</span><span class="p">,</span>
     <span class="na">firstName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">First name</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">middleName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Middle name</span><span class="dl">"</span><span class="p">,</span>
     <span class="na">lastName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Last name</span><span class="dl">"</span><span class="p">,</span>
     <span class="na">callbackUrl</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://callbackurl.com</span><span class="dl">"</span><span class="p">,</span>
     <span class="na">requestType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RENTER_SCREENING</span><span class="dl">"</span><span class="p">,</span>
@@ -1649,12 +1648,6 @@ This is basically the same approach which is used inside the Canopy system. In o
 <td></td>
 </tr>
 <tr>
-<td>middleName</td>
-<td>string</td>
-<td>false</td>
-<td></td>
-</tr>
-<tr>
 <td>lastName</td>
 <td>string</td>
 <td>false</td>
@@ -1706,7 +1699,7 @@ This is basically the same approach which is used inside the Canopy system. In o
 <td>isGuarantorNeeded</td>
 <td>boolean</td>
 <td>false</td>
-<td>Flag allowing to request a guarantor for a specified user (user email in request)</td>
+<td>Flag allowing to request a guarantor for a specified user (user email in request). Applicable only if requestType = &quot;RENTER_SCREENING&quot;</td>
 </tr>
 </tbody></table>
 <h2 id='rent-passport-retrieval'>Rent Passport Retrieval</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
@@ -1785,9 +1778,14 @@ This is basically the same approach which is used inside the Canopy system. In o
 <td>One of [INSTANT, FULL]</td>
 </tr>
 <tr>
+<td>isGuarantorReference</td>
+<td>boolean</td>
+<td>Exists if requestType of reference request was GUARANTOR_SCREENING</td>
+</tr>
+<tr>
 <td>isGuarantorNeeded</td>
 <td>boolean</td>
-<td></td>
+<td>Exists if requestType of reference request was RENTER_SCREENING</td>
 </tr>
 <tr>
 <td>waitingForGuarantor</td>
@@ -1800,6 +1798,16 @@ This is basically the same approach which is used inside the Canopy system. In o
 <td>Exists if isGuarantorNeeded has true value</td>
 </tr>
 </tbody></table>
+
+<ul>
+<li>If <code>requestType</code> of reference request is <code>GUARANTOR_SCREENING</code>, after the user completes his referencing, the Report will be generated as for the Guarantor.</li>
+<li>If <code>isGuarantorNeeded</code> of reference request is <code>true</code>, we will send 1 or 2 Reports:
+
+<ul>
+<li>First case (sending only one Report): Renter and guarantor have completed their Referencings - we send a Report with both data (renter and guarantor).</li>
+<li>Second case (sending two Reports): Renter has completed Referencing, but the guarantor is still not present - we send the Report only with the user&#39;s data. After the Guarantor completes the referencing, we will send one more Report with both data (renter and guarantor).</li>
+</ul></li>
+</ul>
 
 <p>To retrieve a PDF Rent Passport after successful referencing completion, you can use the url field from the above response:</p>
 <h3 id='http-request-10'>HTTP Request</h3>
@@ -1840,7 +1848,7 @@ This is basically the same approach which is used inside the Canopy system. In o
   <span class="p">},</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed.</p>
+<p>Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed. If <code>requestType</code> of last reference request for user is <code>GUARANTOR_SCREENING</code>, the Report will be generated as for the Guarantor.</p>
 <h3 id='http-request-11'>HTTP Request</h3>
 <p><code>GET /referencing-requests/client/:clientId/rent-passport/:canopyReferenceId</code></p>
 <h3 id='url-parameters-6'>URL Parameters</h3>
