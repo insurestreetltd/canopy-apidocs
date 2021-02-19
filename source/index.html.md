@@ -67,7 +67,7 @@ const authenticate = async () => {
 
   // Send POST request
   return axios({
-    url: `${canopyEndpointBaseUri}/referencing-requests/client/${clientId}/a`,
+    url: `${canopyEndpointBaseUri}/referencing-requests/client/${clientId}/token`,
     method: "POST",
     headers: {
       // Add API key from the credentials into headers
