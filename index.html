@@ -288,7 +288,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;php&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -299,6 +299,7 @@
       <img src="images/logo-8f56d7a9.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="php">php</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -416,7 +417,7 @@
 <span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_client_id</span><span class="dl">"</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">clientSecretKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_secret_key</span><span class="dl">"</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">canopyApiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_secret_key</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">canopyApiKey</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">your_api_key</span><span class="dl">"</span><span class="p">;</span>
 
 <span class="c1">// Function that generates jwt token payload using clientId</span>
 <span class="kd">const</span> <span class="nx">generatePayload</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -452,6 +453,52 @@
 <span class="p">};</span>
 
 <span class="nx">authenticate</span><span class="p">();</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="c1">// For JWT generation we used Firebase PHP-JWT library: https://github.com/firebase/php-jwt</span>
+<span class="kn">use</span> <span class="err">\</span><span class="no">Firebase\JWT\JWT</span><span class="p">;</span>
+
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+<span class="nv">$secretKey</span> <span class="o">=</span> <span class="s2">"your_secret_key"</span><span class="p">;</span>
+
+<span class="nv">$now</span> <span class="o">=</span> <span class="nb">time</span><span class="p">();</span>
+
+<span class="c1">// Generate JWT payload</span>
+<span class="nv">$payload</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"iss"</span> <span class="o">=&gt;</span> <span class="s2">"canopy.rent"</span><span class="p">,</span>
+    <span class="s2">"scope"</span> <span class="o">=&gt;</span> <span class="s2">"request.write_only document.read_only"</span><span class="p">,</span>
+    <span class="s2">"aud"</span> <span class="o">=&gt;</span> <span class="s2">"referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/token"</span><span class="p">,</span>
+    <span class="s2">"exp"</span> <span class="o">=&gt;</span> <span class="nv">$now</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"iat"</span> <span class="o">=&gt;</span> <span class="nv">$now</span>
+<span class="p">);</span>
+
+<span class="c1">// Generate JWT key using payload and secret key</span>
+<span class="nv">$jwt</span> <span class="o">=</span> <span class="no">JWT</span><span class="o">::</span><span class="nf">encode</span><span class="p">(</span><span class="nv">$payload</span><span class="p">,</span> <span class="nv">$secretKey</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$jwt</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+
+<span class="c1">// We used Guzzle as HTTP client: https://docs.guzzlephp.org/en/stable/#</span>
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Send POST request to get access token with your api key and generated JWT key</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/token"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Content-Type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"jwtKey"</span> <span class="o">=&gt;</span> <span class="nv">$jwt</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -498,6 +545,26 @@
     <span class="na">secretKey</span><span class="p">:</span> <span class="dl">"</span><span class="s2">new_secret_key</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/refresh"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"secretKey"</span> <span class="o">=&gt;</span> <span class="s2">"new_secret_key"</span><span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -562,6 +629,44 @@
     <span class="p">]</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client-user-data/set-identity"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"example@email.com"</span><span class="p">,</span>
+      <span class="s2">"firstName"</span> <span class="o">=&gt;</span> <span class="s2">"FirstName"</span><span class="p">,</span>
+      <span class="s2">"middleName"</span> <span class="o">=&gt;</span> <span class="s2">"MiddleName"</span><span class="p">,</span>
+      <span class="s2">"lastName"</span> <span class="o">=&gt;</span> <span class="s2">"LastName"</span><span class="p">,</span>
+      <span class="s2">"dateOfBirth"</span> <span class="o">=&gt;</span> <span class="s2">"2000-03-05"</span><span class="p">,</span>
+      <span class="s2">"phone"</span> <span class="o">=&gt;</span> <span class="s2">"88002553535"</span><span class="p">,</span>
+      <span class="s2">"addresses"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="p">[</span>
+          <span class="s2">"startDate"</span> <span class="o">=&gt;</span> <span class="s2">"2020-09-01"</span><span class="p">,</span>
+          <span class="s2">"flat"</span> <span class="o">=&gt;</span> <span class="s2">"9"</span><span class="p">,</span>
+          <span class="s2">"houseNumber"</span> <span class="o">=&gt;</span> <span class="s2">"113"</span><span class="p">,</span>
+          <span class="s2">"street"</span> <span class="o">=&gt;</span> <span class="s2">"Street Name"</span><span class="p">,</span>
+          <span class="s2">"countryCode"</span> <span class="o">=&gt;</span> <span class="s2">"GB"</span><span class="p">,</span>
+          <span class="s2">"town"</span> <span class="o">=&gt;</span> <span class="s2">"London"</span><span class="p">,</span>
+          <span class="s2">"postCode"</span> <span class="o">=&gt;</span> <span class="s2">"M1 1AE"</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -745,7 +850,7 @@
           <span class="na">annualSalary</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
           <span class="na">paymentFrequency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MONTHLY</span><span class="dl">"</span><span class="p">,</span>
           <span class="na">employment</span><span class="p">:</span> <span class="p">{</span>
-            <span class="na">companyName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Comapny name</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">companyName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Company name</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">jobTitle</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Job title</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">employmentStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FULL_TIME</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">employmentBasis</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CONTRACT</span><span class="dl">"</span><span class="p">,</span>
@@ -756,6 +861,44 @@
     <span class="p">}</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client-user-data/set-income"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"example@email.com"</span><span class="p">,</span>
+      <span class="s2">"data"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s2">"income"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="p">[</span>
+            <span class="s2">"incomeSource"</span> <span class="o">=&gt;</span> <span class="s2">"EMPLOYED"</span><span class="p">,</span>
+            <span class="s2">"annualSalary"</span> <span class="o">=&gt;</span> <span class="mi">100000</span><span class="p">,</span>
+            <span class="s2">"paymentFrequency"</span> <span class="o">=&gt;</span> <span class="s2">"MONTHLY"</span><span class="p">,</span>
+            <span class="s2">"employment"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+              <span class="s2">"companyName"</span> <span class="o">=&gt;</span> <span class="s2">"Company name"</span><span class="p">,</span>
+              <span class="s2">"jobTitle"</span> <span class="o">=&gt;</span> <span class="s2">"Job title"</span><span class="p">,</span>
+              <span class="s2">"employmentStatus"</span> <span class="o">=&gt;</span> <span class="s2">"FULL_TIME"</span><span class="p">,</span>
+              <span class="s2">"employmentBasis"</span> <span class="o">=&gt;</span> <span class="s2">"CONTRACT"</span><span class="p">,</span>
+              <span class="s2">"startDate"</span> <span class="o">=&gt;</span> <span class="s2">"2020-09-01"</span>
+            <span class="p">]</span>
+          <span class="p">]</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1151,6 +1294,40 @@
     <span class="p">}</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client-user-data/set-rent"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"example@email.com"</span><span class="p">,</span>
+      <span class="s2">"data"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s2">"homeowner"</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"rentsDuringLastYear"</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"rents"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="p">[</span>
+            <span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Rent name"</span><span class="p">,</span>
+            <span class="s2">"paymentFrequency"</span> <span class="o">=&gt;</span> <span class="s2">"MONTHLY"</span><span class="p">,</span>
+            <span class="s2">"rentPaymentAmount"</span> <span class="o">=&gt;</span> <span class="mi">10000</span><span class="p">,</span>
+            <span class="s2">"rentPaidTo"</span> <span class="o">=&gt;</span> <span class="s2">"Paid to"</span>
+          <span class="p">]</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1296,6 +1473,26 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"GET"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/branches-list"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1469,6 +1666,30 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="na">clientBranchId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">592954da-4ea7-426b-ace3-f61dbc169ea4</span><span class="dl">"</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/link-branch"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"canopyBranchId"</span> <span class="o">=&gt;</span> <span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span><span class="p">,</span>
+      <span class="s2">"clientBranchId"</span> <span class="o">=&gt;</span> <span class="s2">"592954da-4ea7-426b-ace3-f61dbc169ea4"</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1545,6 +1766,27 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+<span class="nv">$clientBranchId</span> <span class="o">=</span> <span class="s2">"client_branch_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"DELETE"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/branch-mapping/</span><span class="nv">$clientBranchId</span><span class="s2">"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1601,6 +1843,38 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="na">clientReferenceId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">12346</span><span class="dl">"</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/request"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"test@email.com"</span><span class="p">,</span>
+      <span class="s2">"firstName"</span> <span class="o">=&gt;</span> <span class="s2">"First name"</span><span class="p">,</span>
+      <span class="s2">"lastName"</span> <span class="o">=&gt;</span> <span class="s2">"Last name"</span><span class="p">,</span>
+      <span class="s2">"callbackUrl"</span> <span class="o">=&gt;</span> <span class="s2">"https://callbackurl.com"</span><span class="p">,</span>
+      <span class="s2">"requestType"</span> <span class="o">=&gt;</span> <span class="s2">"RENTER_SCREENING"</span><span class="p">,</span>
+      <span class="s2">"itemType"</span> <span class="o">=&gt;</span> <span class="s2">"FULL"</span><span class="p">,</span>
+      <span class="s2">"title"</span> <span class="o">=&gt;</span> <span class="s2">"Title"</span><span class="p">,</span>
+      <span class="s2">"phone"</span> <span class="o">=&gt;</span> <span class="s2">"88002553535"</span><span class="p">,</span>
+      <span class="s2">"branchId"</span> <span class="o">=&gt;</span> <span class="s2">"branch_id"</span><span class="p">,</span>
+      <span class="s2">"clientReferenceId"</span> <span class="o">=&gt;</span> <span class="s2">"12346"</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1716,6 +1990,27 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+<span class="nv">$documentId</span> <span class="o">=</span> <span class="s2">"document_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"GET"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/documents/</span><span class="nv">$documentId</span><span class="s2">"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <p>Once referencing has been completed by the renter in the Canopy mobile application, an update message will be sent to the <code>callbackUrl</code> provided at the moment of referencing request. This message will have the following structure:</p>
 
@@ -1847,6 +2142,27 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+<span class="nv">$canopyReferenceId</span> <span class="o">=</span> <span class="s2">"canopy_reference_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"GET"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/rent-passport/</span><span class="nv">$canopyReferenceId</span><span class="s2">"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <p>Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed. If <code>requestType</code> of last reference request for user is <code>GUARANTOR_SCREENING</code>, the Report will be generated as for the Guarantor.</p>
 <h3 id='http-request-11'>HTTP Request</h3>
@@ -1885,6 +2201,29 @@ This is basically the same approach which is used inside the Canopy system. In o
   <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">example@email.com</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"DELETE"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/revoke-guarantor-request"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"test@email.com"</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1942,6 +2281,31 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="na">additionalSettings</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">INCOME</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">RENT</span><span class="dl">"</span><span class="p">]</span>
   <span class="p">},</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/webhook/register"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">],</span>
+    <span class="s2">"json"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"PASSPORT_STATUS_UPDATES"</span><span class="p">,</span>
+      <span class="s2">"callbackUrl"</span> <span class="o">=&gt;</span> <span class="s2">"https://callbackurl.com"</span><span class="p">,</span>
+      <span class="s2">"additionalSettings"</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"INCOME"</span><span class="p">,</span> <span class="s2">"RENT"</span><span class="p">]</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2266,6 +2630,7 @@ This is basically the same approach which is used inside the Canopy system. In o
 
 <span class="kd">const</span> <span class="nx">canopyEndpointBaseUri</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">canopy_base_uri</span><span class="dl">"</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">clientId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">client_id</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">webhookType</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">PASSPORT_STATUS_UPDATES</span><span class="dl">"</span><span class="p">;</span>
 
 <span class="nx">axios</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">canopyEndpointBaseUri</span><span class="p">}</span><span class="err">/referencing-requests/client/</span><span class="p">${</span><span class="nx">clientId</span><span class="p">}</span><span class="err">/webhook/</span><span class="p">${</span><span class="nx">webhookType</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
@@ -2275,6 +2640,26 @@ This is basically the same approach which is used inside the Canopy system. In o
     <span class="dl">"</span><span class="s2">x-api-key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">api_key</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$canopyEndpointBaseUri</span> <span class="o">=</span> <span class="s2">"canopy_base_uri"</span><span class="p">;</span>
+<span class="nv">$apiKey</span> <span class="o">=</span> <span class="s2">"your_api_key"</span><span class="p">;</span>
+<span class="nv">$authorizationToken</span> <span class="o">=</span> <span class="s2">"authorization_token"</span><span class="p">;</span>
+<span class="nv">$clientId</span> <span class="o">=</span> <span class="s2">"your_client_id"</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span>
+  <span class="s2">"DELETE"</span><span class="p">,</span>
+  <span class="s2">"</span><span class="nv">$canopyEndpointBaseUri</span><span class="s2">/referencing-requests/client/</span><span class="nv">$clientId</span><span class="s2">/webhook/</span><span class="nv">$webhookType</span><span class="s2">"</span><span class="p">,</span>
+  <span class="p">[</span>
+    <span class="s2">"headers"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s2">"Authorization"</span> <span class="o">=&gt;</span> <span class="nv">$authorizationToken</span><span class="p">,</span>
+      <span class="s2">"x-api-key"</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">(),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2332,6 +2717,7 @@ This is basically the same approach which is used inside the Canopy system. In o
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="php">php</a>
           </div>
       </div>
     </div>
