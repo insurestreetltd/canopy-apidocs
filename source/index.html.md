@@ -3,7 +3,7 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
-  # - shell
+  - php
   # - ruby
   # - python
 
@@ -44,7 +44,7 @@ const axios = require("axios");
 const canopyEndpointBaseUri = "canopy_base_uri";
 const clientId = "your_client_id";
 const clientSecretKey = "your_secret_key";
-const canopyApiKey = "your_secret_key";
+const canopyApiKey = "your_api_key";
 
 // Function that generates jwt token payload using clientId
 const generatePayload = () => {
@@ -80,6 +80,55 @@ const authenticate = async () => {
 };
 
 authenticate();
+```
+
+```php
+<?php
+require_once 'vendor/autoload.php';
+
+// For JWT generation we used Firebase PHP-JWT library: https://github.com/firebase/php-jwt
+use \Firebase\JWT\JWT;
+
+$clientId = "your_client_id";
+$secretKey = "your_secret_key";
+
+$now = time();
+
+// Generate JWT payload
+$payload = array(
+    "iss" => "canopy.rent",
+    "scope" => "request.write_only document.read_only",
+    "aud" => "referencing-requests/client/$clientId/token",
+    "exp" => $now + 60 * 60,
+    "iat" => $now
+);
+
+// Generate JWT key using payload and secret key
+$jwt = JWT::encode($payload, $secretKey);
+
+echo $jwt, "\n";
+
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+
+// We used Guzzle as HTTP client: https://docs.guzzlephp.org/en/stable/#
+$client = new \GuzzleHttp\Client();
+
+// Send POST request to get access token with your api key and generated JWT key
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/token",
+  [
+    "headers" => [
+      "Content-Type" => "application/json",
+      "x-api-key" => $apiKey
+    ],
+    "json" => ["jwtKey" => $jwt]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -126,6 +175,29 @@ axios({
     secretKey: "new_secret_key",
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client/refresh",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => ["secretKey" => "new_secret_key"]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -190,6 +262,47 @@ axios({
     ]
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client-user-data/set-identity",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "email" => "example@email.com",
+      "firstName" => "FirstName",
+      "middleName" => "MiddleName",
+      "lastName" => "LastName",
+      "dateOfBirth" => "2000-03-05",
+      "phone" => "88002553535",
+      "addresses" => [
+        [
+          "startDate" => "2020-09-01",
+          "flat" => "9",
+          "houseNumber" => "113",
+          "street" => "Street Name",
+          "countryCode" => "GB",
+          "town" => "London",
+          "postCode" => "M1 1AE"
+        ]
+      ]
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -276,7 +389,7 @@ axios({
           annualSalary: 100000,
           paymentFrequency: "MONTHLY",
           employment: {
-            companyName: "Comapny name",
+            companyName: "Company name",
             jobTitle: "Job title",
             employmentStatus: "FULL_TIME",
             employmentBasis: "CONTRACT",
@@ -287,6 +400,47 @@ axios({
     }
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client-user-data/set-income",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "email" => "example@email.com",
+      "data" => [
+        "income" => [
+          [
+            "incomeSource" => "EMPLOYED",
+            "annualSalary" => 100000,
+            "paymentFrequency" => "MONTHLY",
+            "employment" => [
+              "companyName" => "Company name",
+              "jobTitle" => "Job title",
+              "employmentStatus" => "FULL_TIME",
+              "employmentBasis" => "CONTRACT",
+              "startDate" => "2020-09-01"
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -441,6 +595,43 @@ axios({
 });
 ```
 
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client-user-data/set-rent",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "email" => "example@email.com",
+      "data" => [
+        "homeowner" => false,
+        "rentsDuringLastYear" => true,
+        "rents" => [
+          [
+            "name" => "Rent name",
+            "paymentFrequency" => "MONTHLY",
+            "rentPaymentAmount" => 10000,
+            "rentPaidTo" => "Paid to"
+          ]
+        ]
+      ]
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -530,6 +721,29 @@ axios({
     "x-api-key": "api_key",
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$clientId = "your_client_id";
+$authorizationToken = "authorization_token";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "GET",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/branches-list",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -659,6 +873,33 @@ axios({
 });
 ```
 
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/link-branch",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "canopyBranchId" => "592954da-4ea7-426b-ace3-f61dbc169ea4",
+      "clientBranchId" => "592954da-4ea7-426b-ace3-f61dbc169ea4"
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -725,6 +966,30 @@ axios({
 });
 ```
 
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+$clientBranchId = "client_branch_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "DELETE",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/branch-mapping/$clientBranchId",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -778,6 +1043,41 @@ axios({
     clientReferenceId: "12346"
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/request",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "email" => "test@email.com",
+      "firstName" => "First name",
+      "lastName" => "Last name",
+      "callbackUrl" => "https://callbackurl.com",
+      "requestType" => "RENTER_SCREENING",
+      "itemType" => "FULL",
+      "title" => "Title",
+      "phone" => "88002553535",
+      "branchId" => "branch_id",
+      "clientReferenceId" => "12346"
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -835,6 +1135,30 @@ axios({
     "x-api-key": "api_key",
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+$documentId = "document_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "GET",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/documents/$documentId",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 Once referencing has been completed by the renter in the Canopy mobile application, an update message will be sent to the `callbackUrl` provided at the moment of referencing request. This message will have the following structure:
@@ -901,6 +1225,30 @@ axios({
 });
 ```
 
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+$canopyReferenceId = "canopy_reference_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "GET",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/rent-passport/$canopyReferenceId",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
+```
+
 Get Screening Results of the renter, even if Passport is not completed. When you receive notifications that some of the Renter Passports sections were updated, you can call and get a PDF Report with current state. For example it is useful when renter should provide FULL referencing, but you wish to see INSTANT screening results as soon as it is completed and not wait while full screening will be passed. If `requestType` of last reference request for user is `GUARANTOR_SCREENING`, the Report will be generated as for the Guarantor.
 
 ### HTTP Request
@@ -935,6 +1283,32 @@ axios({
   data: {
     email: "example@email.com",
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "DELETE",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/revoke-guarantor-request",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "email" => "test@email.com"
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -986,6 +1360,34 @@ axios({
     additionalSettings: ["INCOME", "RENT"]
   },
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "POST",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/webhook/register",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ],
+    "json" => [
+      "type" => "PASSPORT_STATUS_UPDATES",
+      "callbackUrl" => "https://callbackurl.com",
+      "additionalSettings" => ["INCOME", "RENT"]
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
@@ -1112,6 +1514,7 @@ const axios = require("axios");
 
 const canopyEndpointBaseUri = "canopy_base_uri";
 const clientId = "client_id";
+const webhookType = "PASSPORT_STATUS_UPDATES";
 
 axios({
   url: `${canopyEndpointBaseUri}/referencing-requests/client/${clientId}/webhook/${webhookType}`,
@@ -1121,6 +1524,29 @@ axios({
     "x-api-key": "api_key",
   }
 });
+```
+
+```php
+<?php
+$canopyEndpointBaseUri = "canopy_base_uri";
+$apiKey = "your_api_key";
+$authorizationToken = "authorization_token";
+$clientId = "your_client_id";
+
+$client = new \GuzzleHttp\Client();
+$response = $client->request(
+  "DELETE",
+  "$canopyEndpointBaseUri/referencing-requests/client/$clientId/webhook/$webhookType",
+  [
+    "headers" => [
+      "Authorization" => $authorizationToken,
+      "x-api-key" => $apiKey
+    ]
+  ]
+);
+
+echo $response->getBody(), "\n";
+?>
 ```
 
 > The above command returns JSON structured like this:
