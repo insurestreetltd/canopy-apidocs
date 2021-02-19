@@ -47,25 +47,55 @@ You need to request an API token to make calls to the Canopy API. In order to do
 2. You need to sign this with JWT (e.g. jsonwebtoken in Javascript) using the secretKey in the credentials you were sent
 
    ```
+   // In this example we use jsonwebtoken library for node.js: https://www.npmjs.com/package/jsonwebtoken
    const jwtKey = jwt.sign(generatePayload(config), secretKey);
    ```
 
-   The BODY of the request should include the following
+   Full example of generating JWT key using PHP:
 
    ```
-   jwtKey: jwtKey
+    <?php
+    // In this example we use Firebase PHP-JWT library for PHP: https://github.com/firebase/php-jwt
+    use \Firebase\JWT\JWT;
+
+
+    $clientId = "client_id";
+    $secretKey = "secret_key";
+
+    $now = time();
+
+    $payload = array(
+        "iss" => "canopy.rent",
+        "scope" => "request.write_only document.read_only",
+        "aud" => "referencing-requests/client/$clientId/token",
+        "exp" => $now + 60 * 60,
+        "iat" => $now
+    );
+
+    $jwt = JWT::encode($payload, $secretKey);
+
+    print_r($jwt);
+    ?>
    ```
 
-3. The header of the request should include the apiKey from the credentials you were sent
+3. Finally make a POST request to the following endpoint:
+
+   ```
+   POST /referencing-requests/client/:clientId/token
+   ```
+
+   Include x-api-key header with the apiKey from the credentials you were sent:
 
    ```
    x-api-key: apiKey
    ```
 
-4. Finally make a POST request with the header and body to the following endpoint:
+   Add generated JWT key in the request body:
 
    ```
-   POST /referencing-requests/client/:clientId/token
+    {
+      "jwtKey": "generated_jwt_key"
+    }
    ```
 
    If the request is successful, the response body will contain the token for future API requests with an expires timestamp:
