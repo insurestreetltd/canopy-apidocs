@@ -1176,7 +1176,7 @@ Document data structure:
 | documentType         | integer | One of [0, 1]. 0 means INSTANT screening type, 1 means FULL screening type. |
 | url                  | string  | `/referencing-requests/client/:clientId/documents/:documentId`              |
 | maxRent              | integer |                                                                             |
-| status               | string  |                                                                             |
+| status               | string  | One of [VERIFY, CONSIDER, HIGH_RISK]                                        |
 | title                | string  | One of [INSTANT, FULL]                                                      |
 | isGuarantorReference | boolean | Exists if requestType of reference request was GUARANTOR_SCREENING          |
 | isGuarantorNeeded    | boolean | Exists if requestType of reference request was RENTER_SCREENING             |

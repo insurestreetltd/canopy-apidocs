@@ -863,7 +863,7 @@ document: {
   documentType: enum - one of [0, 1]; /* 0 means INSTANT screening type, 1 means FULL screening type */
   url: `/referencing-requests/client/:clientId/documents/:documentId`,
   maxRent: number,
-  status: string,
+  status: string - One of [VERIFY, CONSIDER, HIGH_RISK],
   title: enum - one of [INSTANT, FULL],
   isGuarantorReference: boolean, /* exists if requestType of reference request was GUARANTOR_SCREENING
   isGuarantorNeeded: boolean, /* exists if requestType of reference request was RENTER_SCREENING
@@ -876,10 +876,6 @@ document: {
 - If `isGuarantorNeeded` of reference request is `true`, we will send 1 or 2 Reports:
   - First case (sending only one Report): Renter and guarantor have completed their Referencings - we send a Report with both data (renter and guarantor).
   - Second case (sending two Reports): Renter has completed Referencing, but the guarantor is still not present - we send the Report only with the user's data. After the Guarantor completes the referencing, we will send one more Report with both data (renter and guarantor).
-
-```
-
-```
 
 To retrieve a PDF Rent Passport after successful referencing completion, you can use the `url` field from the above response:
 
