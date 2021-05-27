@@ -482,6 +482,7 @@ The objects inside the "income" array from the above request body can be any of 
     employmentStatus: string, one of ["FULL_TIME", "PART_TIME"], required
     employmentBasis: string, one of ["PERMANENT", "CONTRACT"], required
     startDate: string, date format YYYY-MM-DD, required
+    contractLength: string, one of ["UNDER_1_MONTH", "MONTHS_2", "MONTHS_3", "MONTHS_4", "MONTHS_5", "MONTHS_6", "MONTHS_7", "MONTHS_8", "MONTHS_9", "MONTHS_10", "MONTHS_11", "MONTHS_12", "OVER_12_MONTHS"], required if employmentBasis is CONTRACT
   }
   ```
 
@@ -551,6 +552,7 @@ The "employment" field from the above response can be one of the following:
     employmentStatus: string, one of ["FULL_TIME", "PART_TIME"];
     employmentBasis: string, one of ["PERMANENT", "CONTRACT"];
     startDate: Date;
+    contractLength: string, one of ["UNDER_1_MONTH", "MONTHS_2", "MONTHS_3", "MONTHS_4", "MONTHS_5", "MONTHS_6", "MONTHS_7", "MONTHS_8", "MONTHS_9", "MONTHS_10", "MONTHS_11", "MONTHS_12", "OVER_12_MONTHS"];
   }
   ```
 

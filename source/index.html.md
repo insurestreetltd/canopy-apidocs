@@ -393,7 +393,8 @@ axios({
             jobTitle: "Job title",
             employmentStatus: "FULL_TIME",
             employmentBasis: "CONTRACT",
-            startDate: "2020-09-01"
+            startDate: "2020-09-01",
+            contractLength: "OVER_12_MONTHS"
           }
         }
       ]
@@ -430,7 +431,8 @@ $response = $client->request(
               "jobTitle" => "Job title",
               "employmentStatus" => "FULL_TIME",
               "employmentBasis" => "CONTRACT",
-              "startDate" => "2020-09-01"
+              "startDate" => "2020-09-01",
+              "contractLength" => "OVER_12_MONTHS"
             ]
           ]
         ]
@@ -462,7 +464,8 @@ echo $response->getBody(), "\n";
           "jobTitle": "Job title",
           "employmentStatus": "FULL_TIME",
           "employmentBasis": "CONTRACT",
-          "startDate": "2020-09-01"
+          "startDate": "2020-09-01",
+          "contractLength": "OVER_12_MONTHS"
         }
       }
     ]
@@ -501,13 +504,14 @@ echo $response->getBody(), "\n";
 
 Employment object structure for income source with "EMPLOYED" type:
 
-| Parameter        | Type   | Required | Description                       |
-| ---------------- | ------ | -------- | --------------------------------- |
-| companyName      | string | true     |                                   |
-| jobTitle         | string | true     |                                   |
-| employmentStatus | string | true     | One of ["FULL_TIME", "PART_TIME"] |
-| employmentBasis  | string | true     | One of ["PERMANENT", "CONTRACT"]  |
-| startDate        | string | true     | Date format: YYYY-MM-DD           |
+| Parameter        | Type   | Required                            | Description                                                                                                                                                                       |
+| ---------------- | ------ | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| companyName      | string | true                                |                                                                                                                                                                                   |
+| jobTitle         | string | true                                |                                                                                                                                                                                   |
+| employmentStatus | string | true                                | One of ["FULL_TIME", "PART_TIME"]                                                                                                                                                 |
+| employmentBasis  | string | true                                | One of ["PERMANENT", "CONTRACT"]                                                                                                                                                  |
+| startDate        | string | true                                | Date format: YYYY-MM-DD                                                                                                                                                           |
+| contractLength   | string | true if employmentBasis is CONTRACT | One of ["UNDER_1_MONTH", "MONTHS_2", "MONTHS_3", "MONTHS_4", "MONTHS_5", "MONTHS_6", "MONTHS_7", "MONTHS_8", "MONTHS_9", "MONTHS_10", "MONTHS_11", "MONTHS_12", "OVER_12_MONTHS"] |
 
 <b>"SELF_EMPLOYED" type:</b>
 
@@ -537,7 +541,7 @@ Employment object structure for income source with "SELF_EMPLOYED" type:
 | additionalInfo   | string    | false    |                                                                   |
 | employment       | object    | true     | Object with employment data. See employment field structure below |
 
-Employment object structure for income source with "EMPLOYED" type:
+Employment object structure for income source with "STUDENT" type:
 
 | Parameter                  | Type    | Required | Description             |
 | -------------------------- | ------- | -------- | ----------------------- |
@@ -555,7 +559,7 @@ Employment object structure for income source with "EMPLOYED" type:
 | additionalInfo   | string  | false    |                                                                   |
 | employment       | object  | true     | Object with employment data. See employment field structure below |
 
-Employment object structure for income source with "EMPLOYED" type:
+Employment object structure for income source with "RETIRED", "UNEMPLOYED", "BENEFITS" or "OTHER" type:
 
 | Parameter   | Type   | Required | Description             |
 | ----------- | ------ | -------- | ----------------------- |
