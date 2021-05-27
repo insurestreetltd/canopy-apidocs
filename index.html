@@ -854,7 +854,8 @@
             <span class="na">jobTitle</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Job title</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">employmentStatus</span><span class="p">:</span> <span class="dl">"</span><span class="s2">FULL_TIME</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">employmentBasis</span><span class="p">:</span> <span class="dl">"</span><span class="s2">CONTRACT</span><span class="dl">"</span><span class="p">,</span>
-            <span class="na">startDate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-09-01</span><span class="dl">"</span>
+            <span class="na">startDate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-09-01</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">contractLength</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OVER_12_MONTHS</span><span class="dl">"</span>
           <span class="p">}</span>
         <span class="p">}</span>
       <span class="p">]</span>
@@ -888,7 +889,8 @@
               <span class="s2">"jobTitle"</span> <span class="o">=&gt;</span> <span class="s2">"Job title"</span><span class="p">,</span>
               <span class="s2">"employmentStatus"</span> <span class="o">=&gt;</span> <span class="s2">"FULL_TIME"</span><span class="p">,</span>
               <span class="s2">"employmentBasis"</span> <span class="o">=&gt;</span> <span class="s2">"CONTRACT"</span><span class="p">,</span>
-              <span class="s2">"startDate"</span> <span class="o">=&gt;</span> <span class="s2">"2020-09-01"</span>
+              <span class="s2">"startDate"</span> <span class="o">=&gt;</span> <span class="s2">"2020-09-01"</span><span class="p">,</span>
+              <span class="s2">"contractLength"</span> <span class="o">=&gt;</span> <span class="s2">"OVER_12_MONTHS"</span>
             <span class="p">]</span>
           <span class="p">]</span>
         <span class="p">]</span>
@@ -919,7 +921,8 @@
           </span><span class="nl">"jobTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Job title"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"employmentStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL_TIME"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"employmentBasis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONTRACT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-09-01"</span><span class="w">
+          </span><span class="nl">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-09-01"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"contractLength"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OVER_12_MONTHS"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -1050,6 +1053,12 @@
 <td>true</td>
 <td>Date format: YYYY-MM-DD</td>
 </tr>
+<tr>
+<td>contractLength</td>
+<td>string</td>
+<td>true if employmentBasis is CONTRACT</td>
+<td>One of [&quot;UNDER_1_MONTH&quot;, &quot;MONTHS_2&quot;, &quot;MONTHS_3&quot;, &quot;MONTHS_4&quot;, &quot;MONTHS_5&quot;, &quot;MONTHS_6&quot;, &quot;MONTHS_7&quot;, &quot;MONTHS_8&quot;, &quot;MONTHS_9&quot;, &quot;MONTHS_10&quot;, &quot;MONTHS_11&quot;, &quot;MONTHS_12&quot;, &quot;OVER_12_MONTHS&quot;]</td>
+</tr>
 </tbody></table>
 
 <p><b>&quot;SELF_EMPLOYED&quot; type:</b></p>
@@ -1166,7 +1175,7 @@
 </tr>
 </tbody></table>
 
-<p>Employment object structure for income source with &quot;EMPLOYED&quot; type:</p>
+<p>Employment object structure for income source with &quot;STUDENT&quot; type:</p>
 
 <table><thead>
 <tr>
@@ -1238,7 +1247,7 @@
 </tr>
 </tbody></table>
 
-<p>Employment object structure for income source with &quot;EMPLOYED&quot; type:</p>
+<p>Employment object structure for income source with &quot;RETIRED&quot;, &quot;UNEMPLOYED&quot;, &quot;BENEFITS&quot; or &quot;OTHER&quot; type:</p>
 
 <table><thead>
 <tr>
@@ -2065,7 +2074,7 @@ This is basically the same approach which is used inside the Canopy system. In o
 <tr>
 <td>status</td>
 <td>string</td>
-<td></td>
+<td>One of [VERIFY, CONSIDER, HIGH_RISK]</td>
 </tr>
 <tr>
 <td>title</td>
